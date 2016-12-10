@@ -27,7 +27,7 @@ class Stack(object):
         :param data: 进栈数据
         """
         self.point += 1
-        self.data_list[self.point] = data
+        self.data_list.append(data)
 
     def pop(self):
         if self.point <= -1:
@@ -35,12 +35,39 @@ class Stack(object):
             return
         r = self.data_list[self.point]
         self.point -= 1
+        self.data_list = self.data_list[:-1]
         return r
 
+    def is_empty(self):
+        if len(self.data_list) == 0:
+            return True
+        else:
+            return False
 
-def pre_order_traversal(root):
+
+def pre_order_traversal(root_node):
     stack = Stack()
+    temp_node = root_node
+    while True:
+        print()
+        print("----------loop-----------------")
+        if temp_node is not None:
+            print("show search:", temp_node.weight)
+            if temp_node.right is not None:
+                stack.push(temp_node.right)
+            temp_node = temp_node.left
+        else:
+            if stack.is_empty():
+                break
+            temp_node = stack.pop()
+            pass
 
+
+def in_order_traversal(root_node):
+    stack = Stack()
+    temp_node = root_node
+    while True:
+        pass
     pass
 
 
@@ -57,4 +84,7 @@ if __name__ == "__main__":
     huffman_tree = HuffmanTree(in_node)
     root = huffman_tree.make_huffman_tree()
 
+    print(root.right.right.right.weight)
 
+    print("----------------------")
+    pre_order_traversal(root)
