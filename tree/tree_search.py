@@ -45,6 +45,20 @@ class Stack(object):
             return False
 
 
+class Queue(object):
+
+    def __init__(self):
+        self.queue = []
+
+    def go_in(self, data):
+        self.queue.append(data)
+
+    def go_out(self):
+        r = self.queue[0]
+        self.queue = self.queue[1:]
+        return r
+
+
 def pre_order_traversal(root_node):
     stack = Stack()
     temp_node = root_node
@@ -67,6 +81,14 @@ def in_order_traversal(root_node):
     stack = Stack()
     temp_node = root_node
     while True:
+        while temp_node is not None:
+            stack.push(temp_node)
+            temp_node = temp_node.left
+        temp_node = stack.pop()
+        if temp_node is None:
+            break
+        print("show search:", temp_node.weight)
+        temp_node = temp_node.right
         pass
     pass
 
@@ -87,4 +109,4 @@ if __name__ == "__main__":
     print(root.right.right.right.weight)
 
     print("----------------------")
-    pre_order_traversal(root)
+    in_order_traversal(root)
